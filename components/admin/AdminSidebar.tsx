@@ -11,6 +11,7 @@ const navItems = [
   { label: 'Products', href: '/admin/products', icon: '📦' },
   { label: 'Sphere Showcase', href: '/admin/sphere-showcase', icon: '🌐' },
   { label: 'Metrics', href: '/admin/metrics', icon: '📈' },
+  { label: 'Homepage Sections', href: '/admin/homepage-sections', icon: '✨' },
   { label: 'Case Studies', href: '/admin/case-studies', icon: '📁' },
   { label: 'Testimonials', href: '/admin/testimonials', icon: '💬' },
   { label: 'Blog Posts', href: '/admin/blog', icon: '✏️' },

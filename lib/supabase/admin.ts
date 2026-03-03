@@ -194,10 +194,40 @@ export const contactSubmissionsAdmin = {
   delete: (id: string | number) => deleteRow('contact_submissions', id),
 }
 
+// ============ HOMEPAGE SECTIONS ============
+export const homepageSectionsAdmin = {
+  getAll: async () => {
+    if (!adminClient) return []
+    const { data, error } = await adminClient.from('homepage_sections').select('*').order('display_order', { ascending: true })
+    if (error) throw error
+    return data || []
+  },
+  get: async (sectionKey: string) => {
+    if (!adminClient) return null
+    const { data, error } = await adminClient.from('homepage_sections').select('*').eq('section_key', sectionKey).single()
+    if (error) return null
+    return data
+  },
+  save: async (sectionKey: string, row: Record<string, unknown>) => {
+    if (!adminClient) throw new Error('Supabase not configured')
+    const { data: existing } = await adminClient.from('homepage_sections').select('id').eq('section_key', sectionKey).limit(1)
+    if (existing && existing.length > 0) {
+      const { data, error } = await adminClient.from('homepage_sections').update(row).eq('id', existing[0].id).select()
+      if (error) throw error
+      return data?.[0]
+    } else {
+      const { data, error } = await adminClient.from('homepage_sections').insert({ ...row, section_key: sectionKey }).select()
+      if (error) throw error
+      return data?.[0]
+    }
+  },
+  delete: async (id: string | number) => deleteRow('homepage_sections', id),
+}
+
 // ============ TABLE COUNTS (for dashboard) ============
 export async function getTableCounts() {
   if (!adminClient) return {}
-  const tables = ['hero', 'services', 'products', 'metrics', 'case_studies', 'testimonials', 'blog_posts', 'footer', 'cta', 'sphere_showcase', 'sphere_showcase_items', 'contact_submissions']
+  const tables = ['hero', 'services', 'products', 'metrics', 'case_studies', 'testimonials', 'blog_posts', 'footer', 'cta', 'sphere_showcase', 'sphere_showcase_items', 'contact_submissions', 'homepage_sections']
   const counts: Record<string, number> = {}
   
   await Promise.all(
