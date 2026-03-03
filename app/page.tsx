@@ -1,7 +1,6 @@
 'use client'
 
 import { useHomePageData } from '@/lib/supabase/useHomePageData'
-import { useHomepageSections } from '@/lib/supabase/useHomepageSections'
 import Header from '@/components/Header'
 import HeroSection from '@/components/HeroSection'
 import CoreServicesSection from '@/components/CoreServicesSection'
@@ -12,11 +11,10 @@ import { TestimonialsSection } from '@/components/blocks/testimonials-with-marqu
 import CtaSection from '@/components/CtaSection'
 import Footer from '@/components/Footer'
 import ImageSphereSection from './ImageSphereSection'
-import HomepageSections from '@/components/HomepageSections'
+import DataSphereShowcase from '@/components/DataSphereShowcase'
 
 export default function Home() {
   const { data } = useHomePageData()
-  const { sections } = useHomepageSections()
 
   return (
     <main className="min-h-screen bg-white">
@@ -58,15 +56,8 @@ export default function Home() {
         <ProductCarousel products={data.products} />
       )}
 
-      {/* Animated homepage sections (replaces old static sections) */}
-      <HomepageSections
-        sections={sections}
-        footerData={data?.footer ? {
-          contactEmail: data.footer.contactEmail,
-          contactPhone: data.footer.contactPhone,
-          address: data.footer.address,
-        } : undefined}
-      />
+      {/* Interactive 3D Data Sphere — services, solutions, industries, products, etc. */}
+      <DataSphereShowcase />
 
       {data?.caseStudiesSection && data.caseStudies && data.caseStudies.length > 0 && (
         <CaseStudiesScroll 
