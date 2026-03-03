@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabase } from './client'
 import type { 
-  Hero, Service, Product, Metric, AboutUs, SphereShowcase, 
+  ImageAsset, Hero, Service, Product, Metric, AboutUs, SphereShowcase, 
   FeaturesSection, CaseStudiesSection, CaseStudy, Testimonial, 
   BlogPost, CTA, Footer, SiteSettings, HomePageData 
 } from './types'
@@ -15,6 +15,12 @@ import {
 // Helper to check if Supabase is configured
 const isSupabaseConfigured = (): boolean => !!supabase
 
+// Helper to wrap a plain URL string into an ImageAsset object
+const toImageAsset = (url: string | null | undefined): ImageAsset | undefined =>
+  url ? { asset: { url } } : undefined
+const toImageAssetOrNull = (url: string | null | undefined): ImageAsset | null =>
+  url ? { asset: { url } } : null
+
 // ============ HERO SECTION ============
 export async function getHeroData(): Promise<Hero | null> {
   if (!isSupabaseConfigured()) {
@@ -26,7 +32,7 @@ export async function getHeroData(): Promise<Hero | null> {
       primaryButtonLink: heroData.ctaLink,
       secondaryButtonText: heroData.secondaryCtaText,
       secondaryButtonLink: heroData.secondaryCtaLink,
-      backgroundImage: heroData.backgroundImage || undefined,
+      backgroundImage: toImageAsset(heroData.backgroundImage),
       backgroundVideos: heroData.backgroundVideos || [],
       taglines: heroData.taglines,
     }
@@ -47,7 +53,7 @@ export async function getHeroData(): Promise<Hero | null> {
       primaryButtonLink: heroData.ctaLink,
       secondaryButtonText: heroData.secondaryCtaText,
       secondaryButtonLink: heroData.secondaryCtaLink,
-      backgroundImage: heroData.backgroundImage || undefined,
+      backgroundImage: toImageAsset(heroData.backgroundImage),
       backgroundVideos: heroData.backgroundVideos || [],
       taglines: heroData.taglines,
     }
@@ -79,7 +85,7 @@ export async function getServices(): Promise<Service[]> {
       icon: s.icon,
       order: s.order,
       link: s.link,
-      image: s.image || undefined,
+      image: toImageAsset(s.image),
     }))
   }
   
@@ -98,7 +104,7 @@ export async function getServices(): Promise<Service[]> {
       icon: s.icon,
       order: s.order,
       link: s.link,
-      image: s.image || undefined,
+      image: toImageAsset(s.image),
     }))
   }
   
@@ -148,7 +154,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
       icon: service.icon,
       order: service.order,
       link: service.link,
-      image: service.image || undefined,
+      image: toImageAsset(service.image),
     }
   }
   
@@ -166,7 +172,7 @@ export async function getProducts(): Promise<Product[]> {
       icon: p.icon,
       order: p.order,
       link: p.link,
-      image: p.image || undefined,
+      image: toImageAsset(p.image),
     }))
   }
   
@@ -185,7 +191,7 @@ export async function getProducts(): Promise<Product[]> {
       icon: p.icon,
       order: p.order,
       link: p.link,
-      image: p.image || undefined,
+      image: toImageAsset(p.image),
     }))
   }
   
@@ -235,7 +241,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
       icon: product.icon,
       order: product.order,
       link: product.link,
-      image: product.image || undefined,
+      image: toImageAsset(product.image),
     }
   }
   
@@ -477,7 +483,7 @@ export async function getCaseStudies(): Promise<CaseStudy[]> {
       bulletPoints: c.bulletPoints,
       isActive: c.isActive,
       order: c.order,
-      backgroundImage: c.backgroundImage || null,
+      backgroundImage: toImageAssetOrNull(c.backgroundImage),
       metrics: c.metrics,
     }))
   }
@@ -498,7 +504,7 @@ export async function getCaseStudies(): Promise<CaseStudy[]> {
       bulletPoints: c.bulletPoints,
       isActive: c.isActive,
       order: c.order,
-      backgroundImage: c.backgroundImage || null,
+      backgroundImage: toImageAssetOrNull(c.backgroundImage),
       metrics: c.metrics,
     }))
   }
@@ -552,7 +558,7 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null
       bulletPoints: study.bulletPoints,
       isActive: study.isActive,
       order: study.order,
-      backgroundImage: study.backgroundImage || null,
+      backgroundImage: toImageAssetOrNull(study.backgroundImage),
       metrics: study.metrics,
       link: null,
     }
@@ -616,7 +622,7 @@ export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
       publishedAt: p.publishedAt,
       author: p.author,
       tags: p.tags,
-      coverImage: p.coverImage || undefined,
+      coverImage: toImageAsset(p.coverImage),
     }))
     return limit ? posts.slice(0, limit) : posts
   }
@@ -643,7 +649,7 @@ export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
       publishedAt: p.publishedAt,
       author: p.author,
       tags: p.tags,
-      coverImage: p.coverImage || undefined,
+      coverImage: toImageAsset(p.coverImage),
     }))
     return limit ? posts.slice(0, limit) : posts
   }
@@ -697,7 +703,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       publishedAt: post.publishedAt,
       author: post.author,
       tags: post.tags,
-      coverImage: post.coverImage || undefined,
+      coverImage: toImageAsset(post.coverImage),
     }
   }
   
