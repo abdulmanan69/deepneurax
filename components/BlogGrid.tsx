@@ -87,11 +87,13 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
               <div className="p-6">
                 <div className="text-slate-500 text-sm mb-2 flex items-center gap-2">
                   <span>{formatDate(post.publishedAt)}</span>
-                  {(post as Record<string, unknown> & { category?: { data?: { attributes?: { name?: string } } } }).category?.data?.attributes?.name && (
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                  {(post as any).category?.data?.attributes?.name && (
                     <>
                       <span>•</span>
                       <span className="text-[#0b1d4f] font-semibold">
-                        {(post as Record<string, unknown> & { category?: { data?: { attributes?: { name?: string } } } }).category?.data?.attributes?.name}
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {(post as any).category.data.attributes.name}
                       </span>
                     </>
                   )}
