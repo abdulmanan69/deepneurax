@@ -11,7 +11,6 @@ import { TestimonialsSection } from '@/components/blocks/testimonials-with-marqu
 import CtaSection from '@/components/CtaSection'
 import Footer from '@/components/Footer'
 import ImageSphereSection from './ImageSphereSection'
-import BubbleSphereShowcase from '@/components/BubbleSphereShowcase'
 import DataSphereShowcase from '@/components/DataSphereShowcase'
 
 export default function Home() {
@@ -56,21 +55,6 @@ export default function Home() {
 
       {data?.products && data.products.length > 0 && (
         <ProductCarousel products={data.products} />
-      )}
-
-      {/* Admin-managed 3D image bubble sphere — performant, no scroll lock */}
-      {data?.sphereShowcase && (
-        <BubbleSphereShowcase
-          data={{
-            sectionTitle: data.sphereShowcase.sectionTitle || '',
-            sectionDescription: data.sphereShowcase.sectionDescription || '',
-            introHeading: data.sphereShowcase.introHeading,
-            introSubheading: data.sphereShowcase.introSubheading,
-            contentHeading: data.sphereShowcase.contentHeading,
-            contentDescription: data.sphereShowcase.contentDescription,
-            items: data.sphereShowcase.items || []
-          }}
-        />
       )}
 
       {/* Interactive 3D Data Sphere — services, solutions, industries, products, etc. */}
