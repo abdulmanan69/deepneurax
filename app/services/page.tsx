@@ -105,7 +105,7 @@ export default function ServicesPage() {
               {services.map((service: any, index: number) => (
                 <div 
                   key={index}
-                  className="group p-8 rounded-3xl bg-white border border-slate-200 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                  className="group p-8 rounded-3xl bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(11,29,79,0.15)] hover:-translate-y-2 transition-all duration-300"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-[#0b1d4f] flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300">
                     {React.createElement(getServiceIcon(service.title, service.icon), { size: 28 })}
