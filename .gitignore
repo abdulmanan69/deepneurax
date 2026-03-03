@@ -30,9 +30,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (INCLUDED for this project - user requested all files)
-# .env*
-# NOTE: .env.local is intentionally committed for easy setup
+# env files
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel
