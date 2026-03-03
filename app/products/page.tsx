@@ -13,6 +13,21 @@ import React from 'react'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* ── Shared texture overlays ── */
+const BlueGridTexture = () => (
+  <>
+    <div className="pointer-events-none absolute inset-0 z-0" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.12) 1px, transparent 1px)', backgroundSize: '44px 44px' }} />
+    <div className="pointer-events-none absolute inset-0 z-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 70%)' }} />
+  </>
+)
+
+const WhiteDotsTexture = () => (
+  <>
+    <div className="pointer-events-none absolute inset-0 z-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+    <div className="pointer-events-none absolute inset-0 z-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%)' }} />
+  </>
+)
+
 const getProductIcon = (name: string, icon?: string) => {
   const nameLower = name.toLowerCase()
   if (icon === '📦' || nameLower.includes('platform')) return Boxes
@@ -49,7 +64,7 @@ export default function ProductsPage() {
   }, [])
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="min-h-screen">
       <Header 
         logo={footer?.siteLogo}
         logoLight={footer?.siteLogoLight}
@@ -57,76 +72,93 @@ export default function ProductsPage() {
         menuItems={footer?.menuItems}
         cta={footer?.cta}
       />
-      
-      <main className="pt-32 pb-20">
-        <div className="container mx-auto px-6 mb-20 text-center">
-          <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight" style={{ fontFamily: "'Geom', sans-serif" }}>
+
+      {/* ═══════════ HERO — Blue + White Dots ═══════════ */}
+      <section className="relative bg-[#0b1d4f] overflow-hidden pt-36 pb-24">
+        <WhiteDotsTexture />
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-blue-200 text-sm font-medium mb-6 border border-white/10">
+            Our Ecosystem
+          </span>
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight leading-[1.1]" style={{ fontFamily: "'Geom', sans-serif" }}>
             Our Products
           </h1>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-blue-100/70 max-w-2xl mx-auto leading-relaxed">
             Explore our ecosystem of AI-powered solutions designed to accelerate your business growth.
           </p>
         </div>
+      </section>
 
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {products.map((product: any, index: number) => (
-              <div 
-                key={index}
-                className="group relative bg-slate-50 rounded-[32px] p-8 border border-slate-200 hover:border-blue-500/50 hover:shadow-2xl transition-all duration-500"
-              >
-                <div className="mb-8 relative aspect-video rounded-2xl overflow-hidden">
-                  {product.image?.asset?.url ? (
-                    <Image
-                      src={product.image.asset.url}
-                      alt={product.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-slate-200 flex items-center justify-center">
-                      <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white">
-                        {React.createElement(getProductIcon(product.name, product.icon), { size: 32 })}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <h3 className="text-2xl font-black text-slate-900 mb-4" style={{ fontFamily: "'Geom', sans-serif" }}>
-                  {product.name}
-                </h3>
-                
-                <p className="text-slate-600 mb-8 line-clamp-3 leading-relaxed">
-                  {product.description}
-                </p>
-
-                <Link 
-                  href={`/products/${product.slug || 'detail'}`}
-                  className="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-4 transition-all"
+      <main>
+        {/* ═══════════ PRODUCTS GRID — White + Blue Grid ═══════════ */}
+        <section className="relative bg-white overflow-hidden py-24">
+          <BlueGridTexture />
+          <div className="relative z-10 container mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {products.map((product: any, index: number) => (
+                <div 
+                  key={index}
+                  className="group relative bg-white rounded-3xl border border-slate-200 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
                 >
-                  Learn More <ArrowRight size={18} />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
+                  {/* Image / Icon Area */}
+                  <div className="relative aspect-video overflow-hidden bg-slate-100">
+                    {product.image?.asset?.url ? (
+                      <Image
+                        src={product.image.asset.url}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-[#0b1d4f] to-[#162d6b] flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-white border border-white/10">
+                          {React.createElement(getProductIcon(product.name, product.icon), { size: 32 })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
-        {/* Call to Action */}
-        <div className="container mx-auto px-6 mt-32">
-          <div className="bg-gradient-to-r from-blue-900 to-slate-900 rounded-[40px] p-12 text-center text-white relative overflow-hidden">
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Get Started?</h2>
-              <p className="text-blue-200 mb-8 max-w-2xl mx-auto">Try our products today and experience the power of AI.</p>
-              <Link href="/contact" className="btn-primary bg-white text-blue-900 hover:bg-blue-50 border-none">
-                Request a Demo
-              </Link>
-            </div>
-            
-            <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
-              <div className="absolute top-[-50%] right-[-20%] w-[800px] h-[800px] bg-blue-500 rounded-full blur-[150px]" />
+                  {/* Content */}
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3" style={{ fontFamily: "'Geom', sans-serif" }}>
+                      {product.name}
+                    </h3>
+
+                    <p className="text-slate-600 mb-6 line-clamp-3 leading-relaxed text-sm">
+                      {product.description}
+                    </p>
+
+                    <Link 
+                      href={`/products/${product.slug || 'detail'}`}
+                      className="inline-flex items-center gap-2 text-[#0b1d4f] font-semibold text-sm hover:text-blue-600 transition-colors group/link"
+                    >
+                      Learn More <ArrowRight size={16} className="group-hover/link:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* ═══════════ CTA — Blue + White Dots ═══════════ */}
+        <section className="relative bg-[#0b1d4f] overflow-hidden py-28">
+          <WhiteDotsTexture />
+          <div className="relative z-10 container mx-auto px-6 text-center">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: "'Geom', sans-serif" }}>
+              Ready to Get Started?
+            </h2>
+            <p className="text-blue-100/70 mb-10 max-w-2xl mx-auto text-lg">
+              Try our products today and experience the power of AI.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0b1d4f] font-semibold hover:bg-blue-50 transition-colors shadow-lg"
+            >
+              Request a Demo <ArrowRight size={18} />
+            </Link>
+          </div>
+        </section>
       </main>
 
       {footer && (

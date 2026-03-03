@@ -24,32 +24,23 @@ interface BlogPost {
   tags?: string[]
 }
 
+/* ── Texture overlay ── */
+const BlueGridTexture = () => (
+  <>
+    <div className="pointer-events-none absolute inset-0 z-0" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.12) 1px, transparent 1px)', backgroundSize: '44px 44px' }} />
+    <div className="pointer-events-none absolute inset-0 z-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 70%)' }} />
+  </>
+)
+
 export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header animation
-      if (document.querySelector('.blog-header')) {
-        gsap.from('.blog-header', {
-          y: 40, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: '.blog-header', start: 'top 85%' }
-        })
-      }
-      
-      // Cards stagger animation
       if (document.querySelector('.blog-card')) {
         gsap.from('.blog-card', {
           y: 50, scale: 0.97, duration: 0.8, stagger: 0.15, ease: 'power3.out',
           scrollTrigger: { trigger: '.blog-grid', start: 'top 80%' }
-        })
-      }
-
-      // Button animation
-      if (document.querySelector('.blog-cta')) {
-        gsap.from('.blog-cta', {
-          y: 30, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: '.blog-cta', start: 'top 90%' }
         })
       }
     }, sectionRef)
@@ -66,17 +57,9 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
   }
 
   return (
-    <section ref={sectionRef} id="blog" className="py-20 bg-gradient-to-b from-white to-blue-50">
-      <div className="container mx-auto px-6">
-        <div className="blog-header text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Blog & Resources
-          </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Insights, trends, and expertise from our team
-          </p>
-        </div>
-
+    <section ref={sectionRef} id="blog" className="relative bg-white overflow-hidden py-24">
+      <BlueGridTexture />
+      <div className="relative z-10 container mx-auto px-6">
         <div className="blog-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post, index) => {
             const slug = typeof post.slug === 'string' ? post.slug : post.slug?.current
@@ -84,10 +67,10 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
             return (
             <article
               key={key}
-              className="blog-card group rounded-2xl overflow-hidden bg-white border border-gray-200 hover:border-blue-400 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+              className="blog-card group rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
               {post.coverImage?.asset?.url ? (
-                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-600 to-cyan-500">
+                <div className="relative h-48 overflow-hidden">
                   <Image
                     src={post.coverImage.asset.url}
                     alt={post.title}
@@ -98,17 +81,17 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
                   />
                 </div>
               ) : (
-                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-600 to-cyan-500" />
+                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#0b1d4f] to-[#162d6b]" />
               )}
 
               <div className="p-6">
-                <div className="text-gray-500 text-sm mb-2 flex items-center gap-2">
+                <div className="text-slate-500 text-sm mb-2 flex items-center gap-2">
                   <span>{formatDate(post.publishedAt)}</span>
-                  {(post as any).category?.data?.attributes?.name && (
+                  {(post as Record<string, unknown> & { category?: { data?: { attributes?: { name?: string } } } }).category?.data?.attributes?.name && (
                     <>
                       <span>•</span>
-                      <span className="text-blue-600 font-semibold">
-                        {(post as any).category.data.attributes.name}
+                      <span className="text-[#0b1d4f] font-semibold">
+                        {(post as Record<string, unknown> & { category?: { data?: { attributes?: { name?: string } } } }).category?.data?.attributes?.name}
                       </span>
                     </>
                   )}
@@ -119,7 +102,7 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
                     {post.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-700 border border-blue-200"
+                        className="px-2.5 py-1 text-xs rounded-full bg-[#0b1d4f]/5 text-[#0b1d4f] font-medium border border-[#0b1d4f]/10"
                       >
                         {tag}
                       </span>
@@ -127,46 +110,27 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
                   </div>
                 )}
 
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#0b1d4f] transition-colors duration-300" style={{ fontFamily: "'Geom', sans-serif" }}>
                   {post.title}
                 </h3>
 
-                <p className="text-gray-600 mb-4 leading-relaxed line-clamp-3">
+                <p className="text-slate-600 mb-4 leading-relaxed line-clamp-3 text-sm">
                   {post.excerpt}
                 </p>
 
                 {slug && (
                   <Link
                     href={`/blog/${slug}`}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors duration-300 font-semibold"
+                    className="inline-flex items-center gap-2 text-[#0b1d4f] font-semibold text-sm hover:text-blue-600 transition-colors group/link"
                   >
                     Read More
-                    <svg
-                      className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
+                    <ArrowRight size={16} className="group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 )}
               </div>
             </article>
             )
           })}
-        </div>
-
-        <div className="blog-cta text-center mt-12">
-          <Link href="/blog" className="btn-primary inline-flex items-center gap-2">
-            View All Posts
-            <ArrowRight className="w-5 h-5" />
-          </Link>
         </div>
       </div>
     </section>
