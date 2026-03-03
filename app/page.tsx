@@ -31,7 +31,7 @@ export default function Home() {
       )}
 
       {data?.metrics && data.metrics.length > 0 && (
-        <MetricsCounter metrics={data.metrics} />
+        <MetricsCounter metrics={data.metrics} metricsSection={data.aboutUs || undefined} />
       )}
 
       {/* Explore Our Vision — scroll-driven image sphere animation */}
