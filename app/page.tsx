@@ -10,6 +10,7 @@ import CaseStudiesScroll from '@/components/CaseStudiesScroll'
 import { TestimonialsSection } from '@/components/blocks/testimonials-with-marquee'
 import CtaSection from '@/components/CtaSection'
 import Footer from '@/components/Footer'
+import ImageSphereSection from './ImageSphereSection'
 import BubbleSphereShowcase from '@/components/BubbleSphereShowcase'
 import DataSphereShowcase from '@/components/DataSphereShowcase'
 
@@ -32,6 +33,21 @@ export default function Home() {
 
       {data?.metrics && data.metrics.length > 0 && (
         <MetricsCounter metrics={data.metrics} metricsSection={data.aboutUs || undefined} />
+      )}
+
+      {/* Explore Our Vision — scroll-driven image sphere animation */}
+      {data?.sphereShowcase && (
+        <ImageSphereSection
+          data={{
+            sectionTitle: data.sphereShowcase.sectionTitle || '',
+            sectionDescription: data.sphereShowcase.sectionDescription || '',
+            introHeading: data.sphereShowcase.introHeading,
+            introSubheading: data.sphereShowcase.introSubheading,
+            contentHeading: data.sphereShowcase.contentHeading,
+            contentDescription: data.sphereShowcase.contentDescription,
+            items: data.sphereShowcase.items || []
+          }}
+        />
       )}
 
       {data?.services && data.services.length > 0 && (
