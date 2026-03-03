@@ -161,11 +161,12 @@ export default function DataSphereShowcase() {
 
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-[#0B1120] to-slate-950" />
-      {/* Decorative glow spots */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-blue-600/5 blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-purple-600/5 blur-[120px]" />
+      {/* Background — matches metrics blue */}
+      <div className="absolute inset-0 bg-[#0b1d4f]" />
+      {/* White dot texture overlay */}
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+      {/* Subtle center glow */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%)' }} />
 
       <div className="relative z-10 container mx-auto px-6">
         {/* ---- Heading ---- */}

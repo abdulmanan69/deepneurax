@@ -23,13 +23,13 @@ export function TestimonialCard({ author, text, href, className }: TestimonialCa
     <Card
       {...(href ? { href, target: '_blank', rel: 'noreferrer' } : {})}
       className={cn(
-        'flex flex-col rounded-lg border-t',
-        'bg-gradient-to-b from-gray-50 to-white',
+        'flex flex-col rounded-lg border border-white/10',
+        'bg-white/[0.06]',
         'p-4 text-start sm:p-6',
-        'hover:from-gray-100 hover:to-white',
+        'hover:bg-white/[0.1]',
         'max-w-[320px] sm:max-w-[320px]',
         'transition-colors duration-300',
-        'shadow-[0_10px_40px_-30px_rgba(15,23,42,0.45)]',
+        'shadow-[0_10px_40px_-30px_rgba(0,0,0,0.5)]',
         className,
       )}
     >
@@ -44,14 +44,14 @@ export function TestimonialCard({ author, text, href, className }: TestimonialCa
             unoptimized
           />
         ) : (
-          <div className="h-12 w-12 rounded-full bg-gray-200" />
+          <div className="h-12 w-12 rounded-full bg-white/10" />
         )}
         <div className="flex flex-col items-start">
-          <h3 className="text-md font-semibold leading-none text-gray-900">{author.name}</h3>
-          {author.handle && <p className="text-sm text-gray-500">{author.handle}</p>}
+          <h3 className="text-md font-semibold leading-none text-white">{author.name}</h3>
+          {author.handle && <p className="text-sm text-blue-200/60">{author.handle}</p>}
         </div>
       </div>
-      <p className="sm:text-md mt-4 text-sm text-gray-600">{text}</p>
+      <p className="sm:text-md mt-4 text-sm text-blue-100/80">{text}</p>
     </Card>
   )
 }

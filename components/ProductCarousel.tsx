@@ -55,27 +55,25 @@ const ProductCard = React.memo(function ProductCard({
     <div
       className={`relative p-8 rounded-[32px] border-2 transition-colors duration-300 group ${
         isActive
-          ? 'shadow-[0_20px_50px_-12px_rgba(59,130,246,0.5)] border-blue-500/50'
-          : 'shadow-none border-white/5'
+          ? 'shadow-[0_20px_50px_-12px_rgba(59,130,246,0.25)] border-blue-400/40'
+          : 'shadow-sm border-slate-200/60'
       }`}
       style={{
         width: isMobile ? '300px' : '420px',
         minHeight: isMobile ? '480px' : '520px',
-        background: isActive
-          ? 'rgba(255, 255, 255, 0.05)'
-          : 'rgba(255, 255, 255, 0.02)',
+        background: isActive ? '#ffffff' : '#f8fafc',
         pointerEvents: isActive ? 'auto' : 'none',
       }}
     >
-      {/* Subtle gradient for active card (no backdrop-filter) */}
+      {/* Subtle gradient for active card */}
       {isActive && (
-        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-[32px] pointer-events-none opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 to-transparent rounded-[32px] pointer-events-none" />
       )}
 
       {/* Product Image or Icon */}
       <div className="mb-8 relative z-10">
         {product.image?.asset?.url ? (
-          <div className="relative w-full h-52 rounded-2xl overflow-hidden ring-1 ring-white/10 group-hover:ring-white/20 transition-all">
+          <div className="relative w-full h-52 rounded-2xl overflow-hidden ring-1 ring-slate-200 group-hover:ring-blue-300 transition-all">
             <Image
               src={product.image.asset.url}
               alt={product.name}
@@ -84,10 +82,10 @@ const ProductCard = React.memo(function ProductCard({
               className={`object-cover transition-transform duration-700 ${isActive ? 'scale-105 group-hover:scale-110' : 'scale-100'}`}
               priority={isActive}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           </div>
         ) : (
-          <div className="flex items-center justify-center h-52 bg-white/5 rounded-2xl border border-white/10">
+          <div className="flex items-center justify-center h-52 bg-slate-50 rounded-2xl border border-slate-200">
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
               {React.createElement(getProductIcon(product.name, product.icon), {
                 size: 40,
@@ -102,7 +100,7 @@ const ProductCard = React.memo(function ProductCard({
       {/* Product Name */}
       <h3
         className={`text-2xl font-black mb-4 text-center transition-colors duration-300 relative z-10 ${
-          isActive ? 'text-3xl text-white' : 'text-white/40'
+          isActive ? 'text-3xl text-slate-900' : 'text-slate-400'
         }`}
         style={{ fontFamily: "'Geom', sans-serif" }}
       >
@@ -112,7 +110,7 @@ const ProductCard = React.memo(function ProductCard({
       {/* Description */}
       <p
         className={`text-center leading-relaxed mb-8 line-clamp-3 relative z-10 transition-colors ${
-          isActive ? 'text-blue-100/80' : 'text-white/20'
+          isActive ? 'text-slate-600' : 'text-slate-300'
         }`}
       >
         {product.description}
@@ -220,43 +218,30 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
     <section
       ref={sectionRef}
       id="products"
-      className="py-16 md:py-32 relative overflow-hidden bg-[#0b1d4f]"
+      className="py-16 md:py-32 relative overflow-hidden bg-white"
     >
-      {/* ── Lightweight background ── */}
-      <div className="absolute inset-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1d4ed8] via-[#0b1d4f] to-[#050b1f]" />
-
-        {/* Single subtle ring (CSS only, GPU-composited) */}
+      {/* ── Blue grid texture on white ── */}
+      <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-500/[0.07] will-change-transform"
-          style={{ animation: 'spin 60s linear infinite' }}
-        />
-
-        {/* Dot pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.12]"
+          className="absolute inset-0"
           style={{
-            backgroundImage: 'radial-gradient(circle, #3b82f6 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
+            backgroundImage: 'linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)',
+            backgroundSize: '44px 44px',
           }}
         />
-
-        {/* Static soft glow blobs (no motion, no blur-[100px]) */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-blue-600/15 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-indigo-600/15 blur-3xl pointer-events-none" />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%)' }} />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="products-header text-center mb-24">
           <h2
-            className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight"
+            className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight"
             style={{ fontFamily: "'Geom', sans-serif", fontWeight: 900 }}
           >
             Featured Products
           </h2>
-          <div className="w-24 h-1.5 bg-blue-500 mx-auto rounded-full mb-8" />
-          <p className="text-blue-100/70 text-lg max-w-2xl mx-auto leading-relaxed">
+          <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mb-8" />
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
             Innovative AI-driven solutions designed to accelerate your digital transformation and operational excellence.
           </p>
         </div>
@@ -296,10 +281,10 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
         <div className="products-nav flex justify-center items-center gap-8 mt-20 relative z-10">
           <button
             onClick={() => setActiveIndex((prev) => (prev - 1 + products.length) % products.length)}
-            className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 hover:bg-white/10 transition-all group"
+            className="w-14 h-14 flex items-center justify-center rounded-2xl bg-slate-100 border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all group"
             aria-label="Previous product"
           >
-            <ArrowRight className="w-6 h-6 text-white/60 rotate-180 group-hover:text-blue-400" />
+            <ArrowRight className="w-6 h-6 text-slate-400 rotate-180 group-hover:text-blue-600" />
           </button>
 
           <div className="flex gap-4">
@@ -309,8 +294,8 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
                 onClick={() => setActiveIndex(index)}
                 className={`transition-all duration-500 rounded-full ${
                   index === activeIndex
-                    ? 'w-10 h-2.5 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)]'
-                    : 'w-2.5 h-2.5 bg-white/20 hover:bg-white/40'
+                    ? 'w-10 h-2.5 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.4)]'
+                    : 'w-2.5 h-2.5 bg-slate-300 hover:bg-slate-400'
                 }`}
               />
             ))}
@@ -318,10 +303,10 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
 
           <button
             onClick={() => setActiveIndex((prev) => (prev + 1) % products.length)}
-            className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 hover:bg-white/10 transition-all group"
+            className="w-14 h-14 flex items-center justify-center rounded-2xl bg-slate-100 border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all group"
             aria-label="Next product"
           >
-            <ArrowRight className="w-6 h-6 text-white/60 group-hover:text-blue-400" />
+            <ArrowRight className="w-6 h-6 text-slate-400 group-hover:text-blue-600" />
           </button>
         </div>
       </div>

@@ -188,8 +188,11 @@ export default function CaseStudiesScroll({
     <section 
       id="case-studies"
       ref={mainContainerRef} 
-      className="relative w-full min-h-screen bg-[#050b1f] text-white overflow-hidden py-20 md:py-0"
+      className="relative w-full min-h-screen bg-white text-slate-900 overflow-hidden py-20 md:py-0"
     >
+      {/* Blue grid texture */}
+      <div className="pointer-events-none absolute inset-0 z-0" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)', backgroundSize: '44px 44px' }} />
+      <div className="pointer-events-none absolute inset-0 z-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%)' }} />
       <div className="container mx-auto px-6 md:px-10 h-full flex flex-col md:flex-row relative">
         
         {/* TEXT CONTENT */}
@@ -203,12 +206,12 @@ export default function CaseStudiesScroll({
           </h2>
           
           <div ref={descriptionRef} className="pointer-events-auto px-4 md:px-0">
-            <p className="text-blue-100/60 text-lg md:text-xl leading-relaxed text-center md:text-left">
+            <p className="text-slate-600 text-lg md:text-xl leading-relaxed text-center md:text-left">
               {sectionData.description}
             </p>
             <div className="mt-8 flex gap-2 justify-center md:justify-start">
                <div className="w-12 h-1 bg-blue-600 rounded-full"></div>
-               <div className="w-4 h-1 bg-blue-600/30 rounded-full"></div>
+               <div className="w-4 h-1 bg-blue-300 rounded-full"></div>
             </div>
           </div>
         </div>
@@ -220,7 +223,7 @@ export default function CaseStudiesScroll({
               key={study.id} 
               className="cs-card-stack relative md:absolute inset-0 flex items-center justify-center p-0 md:p-10 w-full"
             >
-              <div className="w-full max-w-2xl bg-[rgba(5,11,31,0.85)] border border-white/10 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl">
+              <div className="w-full max-w-2xl bg-white border border-slate-200 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-xl">
                 {/* Image Section */}
                 <div className="relative h-[220px] md:h-[280px] w-full">
                   {study.backgroundUrl ? (
@@ -231,9 +234,9 @@ export default function CaseStudiesScroll({
                       className="object-cover"
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-indigo-100" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050b1f] via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                   
                   <div className="absolute top-6 left-6 px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black tracking-widest rounded-full uppercase">
                     Case Study {String(index + 1).padStart(2, '0')}
@@ -242,12 +245,12 @@ export default function CaseStudiesScroll({
 
                 {/* Content Section */}
                 <div className="p-10">
-                  <h3 className="text-3xl font-black text-white mb-4" style={{ fontFamily: "'Geom', sans-serif" }}>
+                  <h3 className="text-3xl font-black text-slate-900 mb-4" style={{ fontFamily: "'Geom', sans-serif" }}>
                     {study.title}
                   </h3>
 
                   {study.description && (
-                    <p className="text-blue-100/70 text-sm mb-6 line-clamp-2 leading-relaxed">
+                    <p className="text-slate-600 text-sm mb-6 line-clamp-2 leading-relaxed">
                       {study.description}
                     </p>
                   )}
@@ -256,18 +259,17 @@ export default function CaseStudiesScroll({
                     {study.bulletPoints.map((point, i) => (
                       <div key={i} className="flex items-start gap-2">
                         <CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-blue-100/80 text-xs font-medium">{point}</span>
+                        <span className="text-slate-700 text-xs font-medium">{point}</span>
                       </div>
                     ))}
                   </div>
 
                   <Link 
                     href={`/case-studies/${study.slug || study.id}`}
-                    className="group/btn relative inline-flex items-center gap-3 px-8 py-3.5 bg-white text-blue-950 font-black text-xs rounded-xl overflow-hidden transition-all"
+                    className="group/btn relative inline-flex items-center gap-3 px-8 py-3.5 bg-blue-600 text-white font-black text-xs rounded-xl overflow-hidden transition-all hover:bg-blue-700"
                   >
                     <span className="relative z-10 uppercase tracking-wider">Explore Details</span>
                     <ArrowUpRight className="relative z-10 w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
-                    <div className="absolute inset-0 bg-blue-50 transform translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
                   </Link>
                 </div>
               </div>
@@ -276,9 +278,9 @@ export default function CaseStudiesScroll({
         </div>
       </div>
 
-      {/* Atmospheric Effects — lightweight radial gradients instead of blur */}
-      <div className="absolute top-0 right-0 w-[60vw] h-[60vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.04) 0%, transparent 70%)' }} />
-      <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(79,70,229,0.04) 0%, transparent 70%)' }} />
+      {/* Atmospheric Effects — blue radial gradients on white */}
+      <div className="absolute top-0 right-0 w-[60vw] h-[60vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.03) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.03) 0%, transparent 70%)' }} />
     </section>
   )
 }

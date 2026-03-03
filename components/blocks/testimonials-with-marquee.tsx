@@ -20,17 +20,21 @@ export function TestimonialsSection({ title, description, testimonials, classNam
   return (
     <section
       className={cn(
-        'bg-white text-gray-900',
+        'bg-[#0b1d4f] text-white relative overflow-hidden',
         'py-12 sm:py-20 md:py-28 px-0',
         className,
       )}
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center sm:gap-12 px-4">
+      {/* White dot texture overlay */}
+      <div className="pointer-events-none absolute inset-0 z-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+      <div className="pointer-events-none absolute inset-0 z-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%)' }} />
+
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center sm:gap-12 px-4 relative z-10">
         <div className="flex flex-col items-center gap-4 sm:gap-6">
-          <h2 className="max-w-[720px] text-3xl font-semibold leading-tight sm:text-5xl sm:leading-tight">
+          <h2 className="max-w-[720px] text-3xl font-semibold leading-tight text-white sm:text-5xl sm:leading-tight">
             {title}
           </h2>
-          <p className="text-md max-w-[640px] font-medium text-gray-600 sm:text-xl">
+          <p className="text-md max-w-[640px] font-medium text-blue-100/70 sm:text-xl">
             {description}
           </p>
         </div>

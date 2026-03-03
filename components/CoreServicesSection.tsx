@@ -28,31 +28,31 @@ const CoreServicesSection: React.FC<CoreServicesSectionProps> = ({ services }) =
   return (
     <section
       id="services"
-      className="py-24 bg-slate-50 relative overflow-hidden"
+      className="py-24 bg-[#0b1d4f] relative overflow-hidden"
     >
-      {/* Sophisticated Background Pattern */}
+      {/* White dot texture overlay */}
       <div className="absolute inset-0 z-0">
         <div 
-          className="absolute inset-0 opacity-[0.4]"
+          className="absolute inset-0 opacity-100"
           style={{ 
-            backgroundImage: `radial-gradient(#cbd5e1 1px, transparent 1px)`,
+            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)`,
             backgroundSize: `32px 32px`
           }}
         ></div>
-        {/* Subtle Gradient Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)]"></div>
+        {/* Subtle center glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)]"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
           <h2 
-            className="text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight"
+            className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight"
             style={{ fontFamily: "'Geom', sans-serif", fontWeight: 900 }}
           >
             Core Services
           </h2>
-          <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mb-6"></div>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+          <div className="w-24 h-1.5 bg-blue-400 mx-auto rounded-full mb-6"></div>
+          <p className="text-blue-100/70 max-w-2xl mx-auto text-lg">
             Empowering your business with cutting-edge AI solutions and strategic technological innovation.
           </p>
         </div>

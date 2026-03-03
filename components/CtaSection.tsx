@@ -55,12 +55,10 @@ export default function CtaSection({ data }: { data: CtaData }) {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-br from-blue-100 via-white to-cyan-100 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-blue-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl"></div>
-      </div>
+    <section ref={sectionRef} className="py-20 bg-white relative overflow-hidden">
+      {/* Blue grid texture overlay */}
+      <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px)', backgroundSize: '44px 44px' }} />
+      <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%)' }} />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="cta-content max-w-4xl mx-auto text-center">
